@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" 
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+</head>
+<body>
+    <style>
+       :root {
+    --primary--color: rgb(156, 164, 238);
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:'Poppins';
+    background: rgb(186, 255, 136);
+    background: linear-gradient(45deg, rgb(92, 230, 115) 0%, rgb(121, 210, 161) 40%, rgb(141, 135, 251) 65%, rgba(254,168,178,1) 80%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.wrapper {
+    background: white;
+    border-radius: 10px;
+    width: 400px;
+    padding: 20px;
+
+}
+
+.title {
+    font-size: 22px;
+}
+
+.content {
+    border: 1px solid #888;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;    
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.content li{
+    background: var(--primary--color);
+    color: white;
+    border-radius: 3px;
+    list-style: none;
+    margin: 4px 3px;
+    padding: 8px;
+}
+
+.content li i{
+    font-size: 16px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.content input{
+    border: none;
+    outline: none;
+    font-size: 20px;
+    margin: 10px;
+    flex: 1;
+}
+
+.remove-all{
+    background: var(--primary--color);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.remove-all:hover {
+    background: rgb(139, 252, 176);
+}
+    </style>
+    <div class="wrapper">
+        <h2 class="title">Search Tags</h2>
+        <div class="content">
+            
+            <input type="text" placeholder="Type and Enter">
+        </div>
+        <button class="remove-all">Remove all</button>
+    </div>
+</body>
+<script src="app.js"></script>
+<script>
+    var content = document.querySelector('.content')
+var input = document.querySelector('.content input')
+var btnRemoveAll =document.querySelector('.remove-all')
+
+var tags = ['Nodejs', 'Reactjs']
+
+function render(){
+    content.innerHTML = ''
+    for (let i = 0; i < tags.length; i++) {
+        const tag = tags[i];
+        content.innerHTML += `<li>
+                            ${tag}
+                            <i class="fas fa-times" onclick="removeTags(${i})"></i>
+                        </li>
+        `   
+
+    }
+
+    content.appendChild(input)
+    input.focus()
+}
+
+function removeTags(index){
+    tags.splice(index, 1)
+    render()
+}
+
+render()
+
+input.addEventListener('keydown', function(event){
+    if(event.key == 'Enter'){
+        tags.push(input.value.trim())
+        input.value =''
+        render()
+    }
+})
+
+btnRemoveAll.addEventListener('click', function(){
+    tags = []
+    render()
+})
+
+</script>
+</html>
